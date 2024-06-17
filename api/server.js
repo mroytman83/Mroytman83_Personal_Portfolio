@@ -1,28 +1,27 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const fetch = require('node-fetch');
 const path = require('path');
-const { processDocuments } = require('./public/assets/js/chat.js'); 
-const key_map = require('./public/assets/js/config');
-const Email = require('./public/assets/js/contact');
+const { processDocuments } = require('./chat.js'); 
+const key_map = require('./config');
+const Email = require('./contact');
 
 const app = express();
 const PORT = 3000;
 
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-//app.use(express.static(path.join(__dirname, 'public')));
-
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, '../public', 'index.html'));
 });
 
 
-app.post('/contact', async (req, res) => {
+app.post('/api/contact', async (req, res) => {
     const { name, email, message } = req.body;
   
     try {
@@ -39,7 +38,7 @@ app.post('/contact', async (req, res) => {
 });
 
 
-app.post('/chat', async (req, res) => {
+app.post('/api/chat', async (req, res) => {
     const userInput = req.body.input;
     console.log(userInput);
     try {
@@ -50,7 +49,9 @@ app.post('/chat', async (req, res) => {
     }
 });
 
-
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+
+module.exports = app;
