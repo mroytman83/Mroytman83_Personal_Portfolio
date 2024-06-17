@@ -3,9 +3,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const fetch = require('node-fetch');
 const path = require('path');
-const { processDocuments } = require('./chat.js'); 
-const key_map = require('./config');
-const Email = require('./contact');
+const { processDocuments } = require('../lib/chat.js'); 
+const key_map = require('../lib/config');
+const Email = require('../lib/contact');
 
 const app = express();
 const PORT = 3000;
@@ -23,6 +23,8 @@ app.get('/', (req, res) => {
 
 app.post('/api/contact', async (req, res) => {
     const { name, email, message } = req.body;
+
+    console.log(name, email, message);
   
     try {
         const response = await Email.sendEmail(name, email, message);
