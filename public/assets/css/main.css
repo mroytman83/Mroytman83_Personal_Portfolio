@@ -173,37 +173,55 @@ input, select, textarea {
 	p {
 		margin: 0 0 2rem 0;
 	}
+
+	/* Fixed containers for mobile devices */
 	.projects-container {
-		display: inline-flex;
-		justify-content: space-between; /* This will space the project-box divs evenly */
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
 		gap: 20px;
 	}
-
+	
 	.project-box {
-		width: calc(150% - 20px); /* 33.33% width with spacing */
+		flex: 1 1 calc(33.33% - 20px);
 		background-color: rgba(255, 255, 255, 0.175);
 		padding: 20px;
 		border-radius: 10px;
 		box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 		transition: transform 0.3s ease-in-out;
+		min-width: 250px; 
 	}
+	
 	.project-box:hover {
 		transform: scale(1.05); 
 	}
-
+	
 	.project-image {
-	width: 100%;
-	max-height: 100px;
-	object-fit: cover;
-	border-radius: 5px;
+		width: 100%;
+		max-height: 100px;
+		object-fit: cover;
+		border-radius: 5px;
 	}
-
+	
 	.project-name {
 		font-weight: bold;
 		margin: 10px 0;
 	}
+	
 	.project-description {
 		margin-bottom: 10px;
+	}
+	
+	@media (max-width: 768px) {
+		.project-box {
+			flex: 1 1 calc(50% - 20px); 
+		}
+	}
+	
+	@media (max-width: 480px) {
+		.project-box {
+			flex: 1 1 100%;
+		}
 	}
 	.github-link {
 		color: #ffffff;
